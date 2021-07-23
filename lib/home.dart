@@ -3,6 +3,7 @@ import 'package:flutter_app01/StackDemo.dart';
 import 'package:flutter_app01/basicWidget.dart';
 import 'package:flutter_app01/basicWidget1.dart';
 import 'package:flutter_app01/containerWidget.dart';
+import 'package:flutter_app01/containerWidget1.dart';
 import 'package:flutter_app01/layoutWidget.dart';
 import 'package:flutter_app01/project/loginPage.dart';
 import 'package:flutter_app01/widgetState.dart';
@@ -16,6 +17,7 @@ class homePage extends StatelessWidget {
     "布局类Widget",
     "层叠布局示例",
     "容器类Widget",
+    "容器类Widget1",
      "项目",
     "可滚动Widget",
     "功能型Widget",
@@ -35,6 +37,7 @@ class homePage extends StatelessWidget {
     layoutWidget(),
     StackDemo(),
     containerWidget(),
+    containerWidget1(),
     loginPage()
   ];
   @override

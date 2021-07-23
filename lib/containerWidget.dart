@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 class containerWidget extends StatelessWidget {
@@ -71,7 +73,178 @@ class containerWidget extends StatelessWidget {
               
               ),
               ),
-            )
+            ),
+            //SizeBox 
+            SizedBox(
+              height: 20,
+            ),
+            SizedBox(
+              width: 80.0,
+              height: 80.0,
+              child: DecoratedBox(
+                 decoration: BoxDecoration(color: Colors.red),
+                  )
+                 ,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            //实际上SizedBox和只是ConstrainedBox⼀个定制，上⾯代码等价于
+            ConstrainedBox(
+              constraints: BoxConstraints.tightFor(
+                width: 80,
+                height: 80
+              ),
+              child: DecoratedBox(
+                 decoration: BoxDecoration(color: Colors.red),
+                  ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            //⽽ BoxConstraints.tightFor(width: 80.0,height: 80.0) 等价于：
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                minWidth: 80,
+                minHeight: 80
+              ),
+              child: DecoratedBox(
+                 decoration: BoxDecoration(color: Colors.red),
+                  ),
+            ),
+            //⽽实际上ConstrainedBox和SizedBox都是通过RenderConstrainedBox来渲染的，
+            //我们可以看到ConstrainedBox和 SizedBox的 createRenderObject() ⽅法都返回的是⼀个RenderConstrainedBox对象：
+            /*
+              @override RenderConstrainedBox createRenderObject(BuildContext context) 
+              { return new RenderConstrainedBox( additionalConstraints: ..., ); }
+            */
+            //多重限制
+            //如果某一个Widget有多个父ConstrainedBox限制，有多重限制时，
+            //对于minWidth和minHeight来说，是取⽗⼦中相应数值较⼤的。
+            //实际上，只有 这样才能保证⽗限制与⼦限制不冲突
+            SizedBox(
+              height: 20,
+            ),
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                minWidth: 90,
+                minHeight: 20,
+                
+              ),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minWidth: 60.0,
+                  minHeight: 60.0,
+                  
+                ),
+                child: DecoratedBox(
+                 decoration: BoxDecoration(color: Colors.red),
+                  ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            //UnconstrainedBox
+            //UnconstrainedBox不会对⼦Widget产⽣任何限制，它允许其⼦Widget按照其本身⼤⼩绘制。
+            //⼀般情况下，我们会很少 直接使⽤此widget，但在"去除"多重限制的时候也许会有帮助，我们看⼀下⾯的代码：
+            ConstrainedBox(
+              constraints:BoxConstraints(
+                minWidth: 60,
+                minHeight: 100,
+                
+              ) ,
+              child: UnconstrainedBox(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minWidth: 90,
+                    minHeight: 20,
+                  
+                  ),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(color: Colors.red),
+                  ),
+                ),
+              ),/*
+                但是，读者请注意，UnconstrainedBox对⽗限制的“去除”并⾮是真正的去除，上⾯例⼦中虽然红⾊区域⼤⼩是90×20， 
+                但上⽅仍然有80的空⽩空间。也就是说⽗限制的minHeight(100.0)仍然是⽣效的，只不过它不影响最终⼦元素的⼤⼩， 但仍然还是占有相应的空间，
+                可以认为此时的⽗ConstrainedBox是作⽤于⼦ConstrainedBox上，⽽redBox只受⼦ ConstrainedBox限制，这⼀点请读者务必注意。
+                那么有什么⽅法可以彻底去除⽗BoxConstraints的限制吗？答案是否定的！所以在此提示读者，在定义⼀个通⽤的 widget时，如果对⼦widget指定限制时⼀定要注意，
+                因为⼀旦指定限制条件，⼦widget如果要进⾏相关⾃定义⼤⼩时将 可能⾮常困难，因为⼦widget在不更改⽗widget的代码的情况下⽆法彻底去除其限制条件。
+              */
+            ),
+              //DecoratedBox
+              //DecoratedBox可以在其⼦widget绘制前(或后)绘制⼀个装饰Decoration（如背景、边框、渐变等）。
+              //DecoratedBox定义 如下
+              /*
+                const DecoratedBox
+                ({ 
+                  //代表将要绘制的装饰，它类型为Decoration，Decoration是⼀个抽象类，它定义了⼀个接⼝ createBoxPainter() ，
+                  //⼦类的主要职责是需要通过实现它来创建⼀个画笔，该画笔⽤于绘制装饰
+                  Decoration decoration, 
+                  //此属性决定在哪⾥绘制Decoration，它接收DecorationPosition的枚举类型，
+                  //该枚举类两个值： background：在⼦widget之后绘制，即背景装饰。 
+                  //foreground：在⼦widget之上绘制，即前景
+                  DecorationPosition position = DecorationPosition.background, 
+                  Widget child 
+                })
+              */
+              //BoxDecoration 我们通常会直接使⽤ BoxDecoration ，
+              //它是⼀个Decoration的⼦类，实现了常⽤的装饰元素的绘制
+              /*
+                BoxDecoration
+                ({ Color color, //颜⾊ 
+                DecorationImage image,//图⽚ 
+                BoxBorder border, //边框 
+                BorderRadiusGeometry borderRadius, //圆⻆ 
+                List<BoxShadow> boxShadow, //阴影,可以指定多个 
+                Gradient gradient, //渐变
+                 BlendMode backgroundBlendMode, //背景混合模式 
+                 BoxShape shape = BoxShape.rectangle, //形状 
+                 })
+              */
+              DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.red,Colors.orange]
+                  ),
+                  borderRadius: BorderRadius.circular(3.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black54,
+                      offset: Offset(2.0,2.0),
+                      blurRadius: 4.0
+                    )
+                  ]
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 80,vertical: 18),
+                  child: Text("Login",style: TextStyle(color: Colors.white),),
+                ),
+              ),//通过BoxDecoration，我们实现了⼀个渐变按钮的外观，
+              //但此示例还不是⼀个标准的按钮，因为它还不能响应 点击事件，我们将在本章末尾来实现⼀个完整的GradientButton。
+
+              //Transform变换
+              //Transform可以在其⼦Widget绘制时对其应⽤⼀个矩阵变换（transformation），
+              //Matrix4是⼀个4D矩阵，通过它我们可 以实现各种矩阵操作。下⾯是⼀个例⼦：
+              //Transform可以在其⼦Widget绘制时对其应⽤⼀个矩阵变换（transformation），
+              //'Matrix4是⼀个4D矩阵，通过它我们可 以实现各种矩阵操作。下⾯是⼀个例⼦
+              /*
+                Container( 
+                  color: Colors.black, 
+                  child: new Transform( 
+                    alignment: Alignment.topRight, //相对于坐标系原点的对⻬⽅式 transform: new Matrix4.skewY(0.3), //沿Y轴倾斜0.3弧度 child: new Container( 
+                  padding: const EdgeInsets.all(8.0), 
+                  color: Colors.deepOrange, 
+                  child: const Text('Apartment for rent!'), ), ), )
+              */
+              //平移
+              //Transform.translate接收⼀个offset参数，可以在绘制时沿x、y轴对⼦widget平移指定的距离
+              SizedBox(
+                height: 20,
+              ),
+               
+              
           ],
         ),
       ),
