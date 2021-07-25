@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app01/ScrollableWidget.dart';
+import 'package:flutter_app01/ScrollableWidget2.dart';
+import 'package:flutter_app01/ScrollableWidget3.dart';
+import 'package:flutter_app01/ScrollableWidget4.dart';
+import 'package:flutter_app01/ScrollableWidget5.dart';
 import 'package:flutter_app01/StackDemo.dart';
 import 'package:flutter_app01/basicWidget.dart';
 import 'package:flutter_app01/basicWidget1.dart';
@@ -19,7 +24,11 @@ class homePage extends StatelessWidget {
     "容器类Widget",
     "容器类Widget1",
      "项目",
-    "可滚动Widget",
+    "可滚动Widget1",
+    "可滚动Widget2",
+    "可滚动Widget3",
+    "可滚动Widget4",
+    "可滚动Widget5",
     "功能型Widget",
     "事件处理与通知",
     "动画",
@@ -38,7 +47,12 @@ class homePage extends StatelessWidget {
     StackDemo(),
     containerWidget(),
     containerWidget1(),
-    loginPage()
+    loginPage(),
+    SingleChildScrollViewTestRoute(),
+    ScrollableWidget2(),
+    ScrollableWidget3(),
+    ScrollableWidget4(),
+    ScrollableWidget5(),
   ];
   @override
   Widget build(BuildContext context) {
