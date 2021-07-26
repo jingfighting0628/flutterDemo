@@ -9,6 +9,7 @@ import 'package:flutter_app01/basicWidget.dart';
 import 'package:flutter_app01/basicWidget1.dart';
 import 'package:flutter_app01/containerWidget.dart';
 import 'package:flutter_app01/containerWidget1.dart';
+import 'package:flutter_app01/funtionWidget.dart';
 import 'package:flutter_app01/layoutWidget.dart';
 import 'package:flutter_app01/project/loginPage.dart';
 import 'package:flutter_app01/widgetState.dart';
@@ -53,6 +54,7 @@ class homePage extends StatelessWidget {
     ScrollableWidget3(),
     ScrollableWidget4(),
     ScrollableWidget5(),
+    functionWidget()
   ];
   @override
   Widget build(BuildContext context) {
