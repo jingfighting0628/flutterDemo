@@ -10,6 +10,8 @@ import 'package:flutter_app01/basicWidget1.dart';
 import 'package:flutter_app01/containerWidget.dart';
 import 'package:flutter_app01/containerWidget1.dart';
 import 'package:flutter_app01/funtionWidget.dart';
+import 'package:flutter_app01/funtionWidget1.dart';
+import 'package:flutter_app01/funtionWidget2.dart';
 import 'package:flutter_app01/layoutWidget.dart';
 import 'package:flutter_app01/project/loginPage.dart';
 import 'package:flutter_app01/widgetState.dart';
@@ -31,6 +33,8 @@ class homePage extends StatelessWidget {
     "可滚动Widget4",
     "可滚动Widget5",
     "功能型Widget",
+    "功能型Widget1",
+    "功能型Widget2",
     "事件处理与通知",
     "动画",
     "自定义Widget",
@@ -54,7 +58,9 @@ class homePage extends StatelessWidget {
     ScrollableWidget3(),
     ScrollableWidget4(),
     ScrollableWidget5(),
-    functionWidget()
+    functionWidget(),
+    InheritedWidgetTestContainer(),
+    ThemeTestRoute()
   ];
   @override
   Widget build(BuildContext context) {
