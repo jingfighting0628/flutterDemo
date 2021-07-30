@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app01/Event-bus.dart';
 
 class basicWidget extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -139,11 +141,11 @@ class basicWidget extends StatelessWidget {
             Container(
               child: SwithcAndCheckBoxTestRoute(),
             ),
-          
           ],
         ));
   }
 }
+
 /*
 通过Switch和Checkbox我们可以看到，虽然它们本身是与状态（是否选中）关联的，
 但它们却不是⾃⼰来维护状态， ⽽是需要⽗widget来管理状态，

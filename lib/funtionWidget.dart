@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app01/Event-bus.dart';
 
 /*
   功能型Widget
@@ -47,13 +48,24 @@ class WillPopScopeTestRoute extends StatefulWidget {
 
 class WillPopScopeTestRouteState extends State<WillPopScopeTestRoute> {
   DateTime? lastPressAt; //上次点击时间
+  var bus = EventBus();
+  @override
+  void initState() {
+    // TODO: implement initState
+    bus.on("login", (arg) {
+      print("You can do something");
+    });
+    bus.emit("login");
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return WillPopScope(
       onWillPop: () async {
         DateTime lastPressAt1 = lastPressAt as DateTime;
-       
+
         if (lastPressAt == null ||
             DateTime.now().difference(lastPressAt1) > Duration(seconds: 1)) {
           lastPressAt = DateTime.now();
@@ -68,4 +80,3 @@ class WillPopScopeTestRouteState extends State<WillPopScopeTestRoute> {
     );
   }
 }
-

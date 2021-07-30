@@ -91,23 +91,24 @@ class loginWidget extends StatelessWidget {
                 child: testVerifyCode(),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 40.0,left: 15.0,right: 15.0),
+                margin:
+                    const EdgeInsets.only(top: 40.0, left: 15.0, right: 15.0),
                 width: ScreenUtil.getScreenW(context) - 30.0,
                 height: 45.0,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10.0)
-                  ),
-                  
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 ),
                 child: RaisedButton(
-                  
-                  child: Text("登  录",style: TextStyle(color: Colors.white,fontSize: 20.0),),
+                  child: Text(
+                    "登  录",
+                    style: TextStyle(color: Colors.white, fontSize: 20.0),
+                  ),
                   onPressed: () {
                     // Navigator.push(context,
                     //     MaterialPageRoute(builder: (context) {
-                     
+
                     // }));
+                    login();
                   },
                   color: Color(0xFF80CBC4),
                 ),
@@ -119,6 +120,10 @@ class loginWidget extends StatelessWidget {
         // Container()
       ],
     );
+  }
+
+  void login() {
+    print("login登录事件");
   }
 }
 
