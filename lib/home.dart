@@ -1,4 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app01/GestureDetector.dart';
+import 'package:flutter_app01/GestureDetector2.dart';
+import 'package:flutter_app01/GestureDetector3.dart';
 import 'package:flutter_app01/ScrollableWidget.dart';
 import 'package:flutter_app01/ScrollableWidget2.dart';
 import 'package:flutter_app01/ScrollableWidget3.dart';
@@ -9,13 +13,14 @@ import 'package:flutter_app01/basicWidget.dart';
 import 'package:flutter_app01/basicWidget1.dart';
 import 'package:flutter_app01/containerWidget.dart';
 import 'package:flutter_app01/containerWidget1.dart';
+import 'package:flutter_app01/eventhandleAndNotification.dart';
 import 'package:flutter_app01/funtionWidget.dart';
 import 'package:flutter_app01/funtionWidget1.dart';
 import 'package:flutter_app01/funtionWidget2.dart';
 import 'package:flutter_app01/layoutWidget.dart';
 import 'package:flutter_app01/project/loginPage.dart';
 import 'package:flutter_app01/widgetState.dart';
-
+import 'package:flutter_app01/GestureDetector1.dart';
 
 class homePage extends StatelessWidget {
   final titles = [
@@ -36,6 +41,10 @@ class homePage extends StatelessWidget {
     "功能型Widget1",
     "功能型Widget2",
     "事件处理与通知",
+    "手势识别",
+    "手势识别1",
+    "手势识别2",
+    "手势识别3",
     "动画",
     "自定义Widget",
     "文件操作与网络请求",
@@ -60,7 +69,12 @@ class homePage extends StatelessWidget {
     ScrollableWidget5(),
     functionWidget(),
     InheritedWidgetTestContainer(),
-    ThemeTestRoute()
+    ThemeTestRoute(),
+    eventhandleAndNotification(),
+    GestureDetectorTestRoute(),
+    GestureDetectorTestRoute1(),
+    GestureDetectorTestRoute2(),
+    ScaleTestRoute()
   ];
   @override
   Widget build(BuildContext context) {

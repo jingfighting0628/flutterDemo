@@ -152,6 +152,11 @@ class _MyHomePageState1 extends State<MyHomePage1> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed:_incrementCounter,
+        tooltip: "Increment",
+        child: Icon(Icons.add),
+      ),
     );
   }
 }
