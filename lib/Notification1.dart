@@ -26,7 +26,11 @@ class _NotificationRouteState extends State<NotificaionRoute> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return NotificationListener<MyNotification>(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("自定义通知"),
+      ),
+      body: NotificationListener<MyNotification>(
       onNotification: (notification) {
         setState(() {
           _msg += notification.msg + "";
@@ -40,7 +44,7 @@ class _NotificationRouteState extends State<NotificaionRoute> {
             Builder(builder: (context) {
               return RaisedButton(
                 onPressed: () {
-                  MyNotification("Hi").dispatch(context);
+                  MyNotification("Hi  ").dispatch(context);
                 },
                 child: Text("Send Notification"),
               );
@@ -49,6 +53,12 @@ class _NotificationRouteState extends State<NotificaionRoute> {
           ],
         ),
       ),
+    ),
     );
   }
 }
+//上⾯代码中，我们每点⼀次按钮就会分发⼀个 MyNotification 类型的通知，我们在Widget根上监听通知，
+//收到通知后 我们将通知通过Text显示在屏幕上。 
+//注意：代码中注释的部分是不能正常⼯作的，
+//因为这个 context 是根Context，⽽NotificationListener是监听的⼦ 树，
+//所以我们通过 Builder 来构建RaisedButton，来获得按钮位置的context。

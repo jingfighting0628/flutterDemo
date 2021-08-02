@@ -1,5 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app01/AnimationWidget.dart';
+import 'package:flutter_app01/AnimationWidget1.dart';
+import 'package:flutter_app01/AnimationWidget2.dart';
 import 'package:flutter_app01/GestureDetector.dart';
 import 'package:flutter_app01/GestureDetector2.dart';
 import 'package:flutter_app01/GestureDetector3.dart';
@@ -50,6 +53,8 @@ class homePage extends StatelessWidget {
     "通知",
     "通知1",
     "动画",
+    "动画1",
+    "动画2",
     "自定义Widget",
     "文件操作与网络请求",
     "包与插件",
@@ -81,6 +86,9 @@ class homePage extends StatelessWidget {
     ScaleTestRoute(),
     NotificationTestRoute(),
     NotificaionRoute(),
+    ScaleAnimationRoute(),
+    ScaleAnimationRoute1(),
+    ScaleAnimationRoute2()
   ];
   @override
   Widget build(BuildContext context) {
