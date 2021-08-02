@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app01/GestureDetector.dart';
 import 'package:flutter_app01/GestureDetector2.dart';
 import 'package:flutter_app01/GestureDetector3.dart';
+import 'package:flutter_app01/Notification.dart';
+import 'package:flutter_app01/Notification1.dart';
 import 'package:flutter_app01/ScrollableWidget.dart';
 import 'package:flutter_app01/ScrollableWidget2.dart';
 import 'package:flutter_app01/ScrollableWidget3.dart';
@@ -45,6 +47,8 @@ class homePage extends StatelessWidget {
     "手势识别1",
     "手势识别2",
     "手势识别3",
+    "通知",
+    "通知1",
     "动画",
     "自定义Widget",
     "文件操作与网络请求",
@@ -74,7 +78,9 @@ class homePage extends StatelessWidget {
     GestureDetectorTestRoute(),
     GestureDetectorTestRoute1(),
     GestureDetectorTestRoute2(),
-    ScaleTestRoute()
+    ScaleTestRoute(),
+    NotificationTestRoute(),
+    NotificaionRoute(),
   ];
   @override
   Widget build(BuildContext context) {
