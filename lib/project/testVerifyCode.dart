@@ -28,7 +28,9 @@ class _testVerifyCodeState extends State<testVerifyCode> {
               code += Random().nextInt(9).toString();
               break;
       }
-      setState(() {});
+      setState(() {
+        
+      });
     }
   }
 
