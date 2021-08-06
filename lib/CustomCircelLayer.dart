@@ -11,11 +11,11 @@ class GradientCicularProgressIndicator extends StatelessWidget {
       {this.stokeWidth = 2.0,
       required this.radius,
       required this.colors,
-      this.stops,
-      this.stroleCapRound = false,
+      required this.stops,
+       this.strokeCapRound = false,
       this.backgroundColor = const Color(0xFFEEEEEE),
       this.totalAngle = 2 * pi,
-      this.value});
+     required this.value});
 
   ///粗细
   final double stokeWidth;
@@ -42,10 +42,31 @@ class GradientCicularProgressIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    double _offet = .0;
-    // 如果两端为圆⻆，则需要对起始位置进⾏调整，否则圆⻆部分会偏离起始位置 // 下⾯调整的⻆度的计算公式是通过数学⼏何知识得出，读者有兴趣可以研究⼀下为什么是这样 
-    if (strokeCapRound) { 
+    double _offset = .0;
+    // 如果两端为圆⻆，则需要对起始位置进⾏调整，否则圆⻆部分会偏离起始位置 // 下⾯调整的⻆度的计算公式是通过数学⼏何知识得出，读者有兴趣可以研究⼀下为什么是这样
+    if (strokeCapRound) {
       _offset = asin(stokeWidth / (radius * 2 - stokeWidth));
     }
+    var _colors = colors;
+    if (_colors == null) {
+      Color color = Theme.of(context).accentColor;
+      _colors = [color, color];
+    }
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("圆形进度条示例"),
+      ),
+      body: Transform.rotate(
+        angle: - pi/2.0 - _offset,
+        child: CustomPaint(
+          size: Size.fromRadius(radius),
+          painter: _GradientCircularProgressPainter(
+            
+          ),
+        ),
+      ),
+    );
   }
 }
+
+
