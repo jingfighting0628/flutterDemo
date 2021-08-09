@@ -6,6 +6,7 @@ import 'package:flutter_app01/AnimationWidget1.dart';
 import 'package:flutter_app01/AnimationWidget2.dart';
 import 'package:flutter_app01/AnimationWidget4.dart';
 import 'package:flutter_app01/AnimationWidget5.dart';
+import 'package:flutter_app01/CustomCircelLayer.dart';
 import 'package:flutter_app01/CustomPaintAndCanvas.dart';
 import 'package:flutter_app01/CustomWidget.dart';
 import 'package:flutter_app01/GestureDetector.dart';
@@ -64,6 +65,7 @@ class homePage extends StatelessWidget {
     "自定义Widget",
     "自定义Widget-TurnBox实例",
     "自定义Widget3",
+    "圆形进度条(自绘)",
     "文件操作与网络请求",
     "包与插件",
     "国际化",
@@ -100,7 +102,8 @@ class homePage extends StatelessWidget {
     HeroAnimationRoute(),
     GradientButtonRoute(),
     TurnBoxRoute(),
-    CustomPaintRoute()
+    CustomPaintRoute(),
+    GradinetCircularProgressRoute()
     
   ];
   @override
