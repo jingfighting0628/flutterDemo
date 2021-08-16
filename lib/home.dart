@@ -9,6 +9,8 @@ import 'package:flutter_app01/AnimationWidget5.dart';
 import 'package:flutter_app01/CustomCircelLayer.dart';
 import 'package:flutter_app01/CustomPaintAndCanvas.dart';
 import 'package:flutter_app01/CustomWidget.dart';
+import 'package:flutter_app01/FileOperationNetRequest.dart';
+import 'package:flutter_app01/FileOperationNetRequest1.dart';
 import 'package:flutter_app01/GestureDetector.dart';
 import 'package:flutter_app01/GestureDetector2.dart';
 import 'package:flutter_app01/GestureDetector3.dart';
@@ -67,6 +69,7 @@ class homePage extends StatelessWidget {
     "自定义Widget3",
     "圆形进度条(自绘)",
     "文件操作与网络请求",
+    "HttpClient网络请求"
     "包与插件",
     "国际化",
     "Flutter核心原理",
@@ -103,7 +106,9 @@ class homePage extends StatelessWidget {
     GradientButtonRoute(),
     TurnBoxRoute(),
     CustomPaintRoute(),
-    GradinetCircularProgressRoute()
+    GradinetCircularProgressRoute(),
+    FileOpetaionRoute(),
+    HttpTestRoute(),
     
   ];
   @override
