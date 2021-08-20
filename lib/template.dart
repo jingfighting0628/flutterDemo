@@ -1,0 +1,1 @@
+// import 'package:json_annotation/json_annotation.dart'; %tpart '%s.g.dart'; @JsonSerializable() class %s { %s(); %sfactory %s.fromJson(Map<String,dynamic> json) => _$%sFromJson(json); Map<String, dynamic> toJson() => _$%sToJson(this); }

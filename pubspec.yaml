@@ -32,11 +32,13 @@ dependencies: #应用或包依赖的其它包或者插件
   flustars: ^2.0.1
   dio: ^4.0.0
   path_provider: ^2.0.2
+  web_socket_channel: ^2.1.0
+  json_serializable: ^4.1.4
   
   # hb_check_code: ^0.0.2
 #开发环境依赖的工具包(而不是flutter本身依赖的包)
 dev_dependencies:
-  
+  build_runner: ^2.0.0
   flutter_test:
     sdk: flutter
 

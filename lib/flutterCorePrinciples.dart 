@@ -1,0 +1,72 @@
+
+
+//Flutter UI系统 在本书的前⾯章节中，我们多次提到"UI系统"这个概念，本书中所指的UI系统特指：基于⼀个平台，在此平台上实现 GUI的⼀个系统，
+这⾥的平台特指操作系统，如Android、iOS或者Windows、macOS。我们说过各个平台UI系统的原 理是相通的，也就是说⽆论是Android还是iOS，
+他们将⼀个⽤户界⾯展示到屏幕的流程是相似的，所以，在介绍Flutter UI系统之前，我们先看看UI系统的基本原理，
+这样可以帮助读者对操作系统和系统底层UI逻辑有⼀个清晰的认识。 UI系统原理 硬件绘图基本原理 提到原理，我们要从屏幕显示图像的基本原理谈起。
+我们知道显示器（屏幕）是由⼀个个物理显示单元组成，每⼀个单 元我们可以称之为⼀个物理像素点，⽽每⼀个像素点可以发出多种颜⾊，
+显示器成相的原理就是在不同的物理像素点上 显示不同的颜⾊，最终构成完整的图像。 
+⼀个像素点能发出的所有颜⾊总数是显示器的⼀个重要指标，⽐如我们所说的1600万⾊的屏幕就是指⼀个像素点可以显 示出1600万种颜⾊，
+⽽显示器颜⾊是有RGB三基⾊组成，所以1600万即2的24次⽅，即每个基本⾊（R、G、B）深度 扩展⾄8 bit(位)，颜⾊深度越深，所能显示的⾊彩更加丰富靓丽。 
+为了更新显示画⾯，显示器是以固定的频率刷新（从GPU取数据），⽐如有⼀部⼿机屏幕的刷新频率是 60Hz。
+当⼀帧 图像绘制完毕后准备绘制下⼀帧时，显示器会发出⼀个垂直同步信号（如VSync）， 60Hz的屏幕就会⼀秒内发出 60次 这样的信号。
+⽽这个信号主要是⽤于同步CPU、GPU和显示器的。⼀般地来说，计算机系统中，CPU、GPU和显示器 以⼀种特定的⽅式协作：CPU将计算好的显示内容提交给 GPU，
+GPU渲染后放⼊帧缓冲区，然后视频控制器按照同步 信号从帧缓冲区取帧数据传递给显示器显示。 CPU和GPU的任务是各有偏重的，
+CPU主要⽤于基本数学和逻辑计算，⽽GPU主要执⾏和图形处理相关的复杂的数 学，如矩阵变化和⼏何计算，GPU的主要作⽤就是确定最终输送给显示器的各个像素点的⾊值。 
+操作系统绘制API的封装 由于最终的图形计算和绘制都是由相应的硬件来完成，⽽直接操作硬件的指令通常都会有操作系统屏蔽，应⽤开发者通 常不会直接⾯对硬件，操作系统屏蔽了这些底层硬件操作后会提供⼀些封装后的API供操作系统之上的应⽤调⽤，但是 对于应⽤开发者来说，直接调⽤这些操作系统提供的API是⽐较复杂和低效的，因为操作系统提供的API往往⽐较基础， 直接调⽤需要了解API的很多细节。正是因为这个原因，⼏乎所有⽤于开发GUI程序的编程语⾔都会在操作系统之上再 封装⼀层，将操作系统原⽣API封装在⼀个编程框架和模型中，然后定义⼀种简单的开发规则来开发GUI应⽤程序，⽽ 这⼀层抽象，正是我们所说的“UI”系统，如Android SDK正是封装了Android操作系统API，提供了⼀个“UI描述⽂件 XML+Java操作DOM”的UI系统，⽽iOS的UIKit 对View的抽象也是⼀样的，他们都将操作系统API抽象成⼀个基础对象 （如⽤于2D图形绘制的Canvas），然后再定义⼀套规则来描述UI，如UI树结构，UI操作的单线程原则等。 Flutter UI系统 我们可以看到，⽆论是Android SDK还是iOS的UIKit 的职责都是相同的，它们只是语⾔载体和底层的系统不同⽽已。那 么可不可以实现这么⼀个UI系统：可以使⽤同⼀种编程语⾔开发，然后针对不同操作系统API抽象⼀个对上接⼝⼀致， 对下适配不同操作系统的的中间层，然后在打包编译时再使⽤相应的中间层代码？如果可以做到，那么我们就可以使⽤ 同⼀套代码编写跨平台的应⽤了。⽽Flutter的原理正是如此，它提供了⼀套Dart API，然后再底层通过OpenGL这种跨 平台的绘制库（内部会调⽤操作系统API）实现了⼀套代码跨多端。由于Dart API也是调⽤操作系统API，所以它的性能 接近原⽣。 注意，虽然Dart是先调⽤了OpenGL，OpenGL才会调⽤操作系统API，但是这仍然是原⽣渲染，因为OpenGL只 是操作系统API的⼀个封装库，它并不像WebView渲染那样需要JavaScript运⾏环境和CSS渲染器，所以不会有 性能损失。
+Flutter UI系统 ⾄此，我们已经介绍了Flutter UI系统和操作系统交互的这⼀部分原理，先在需要说⼀些他对应⽤开发者定义的开发标 准。
+其实在前⾯的章节中，我们已经对这个标准⾮常熟悉了, 简单概括就是：组合和响应式。我们要开发⼀个UI界⾯， 需要通过组合其它Widget来实现，
+Flutter中，⼀切都是Widget，当UI要发⽣变化时，我们不去直接修改DOM，⽽是通 过更新状态，让Flutter UI系统来根据新的状态来重新构建UI。 
+讲到这⾥，读者可能发现Flutter UI系统和Flutter Framework的概念是差不多的，的确如此，之所以⽤“UI系统”，
+是因为 其他平台中可能不这么叫，我们只是为了概念统⼀，便于描述，读者不必纠结于概念本身。 
+在接下来的⼩节中，我们将仔细分析⼀下Flutter UI系统的实现。
+Element与BuildContext 
+Element 在“Widget简介”⼀节，我们介绍了Widget和Element的关系，我们知道最终的UI树其实⼀个个独⽴的Element节点构成。 
+我们也知道了组件最终的Layout、渲染都是通过RenderObject来完成的，从创建到渲染的⼤体流程是：根据Widget⽣ 成Element，
+然后创建将相应的RenderObject关联到Element.renderObject属性，最后再通过RenderObject来完成布局 排列和绘制。 
+Element就是Widget在UI树具体位置的⼀个实例化对象，⼤多数Element只有唯⼀的renderObject，但还有⼀些Element 会有多个⼦节点，
+如继承⾃RenderObjectElement的⼀些类，⽐如MultiChildRenderObjectElement。
+最终所有Element 的RenderObject构成⼀棵树，我们称之为渲染树，即render tree。 Element的⽣命周期如下
+Element的⽣命周期如下： 1. Framework 调⽤ Widget.createElement 创建⼀个Element实例，记为 element 
+2. Framework 调⽤ element.mount(parentElement,newSlot) ，mount⽅法中⾸先调⽤ elment 所对应Widget 的 createRenderObject ⽅法创建与 element 相关联RenderObject对象，
+然后调⽤ element.attachRenderObject ⽅法 将 element.renderObject 添加到渲染树中插槽指定的位置（这⼀步不是必须的，⼀般发⽣在Element树结构发⽣变 化时才需要重新attach）。
+插⼊到渲染树后的 element 就处于“active”状态，处于“active”状态后就可以显示在屏幕 上了（可以隐藏）。
+3. 当 element ⽗Widget的配置数据改变时，为了进⾏Element复⽤，Framework在决定重新创建Element前会先尝试 复⽤相同位置旧的element：调⽤Element对应Widget的 canUpdate() ⽅法，
+如果返回 true ，则复⽤旧Element， 旧的Element会使⽤新的Widget配置数据更新，反之则会创建⼀个新的Element，不会复 ⽤。
+ Widget.canUpdate() 主要是判断 newWidget 与 oldWidget 的 runtimeType 和 key 是否同时相等，如果同时相等 就返回 true ，否则就会返回 false 。
+ 根据这个原理，当我们需要强制更新⼀个Widget时，可以通过指定不同的 Key来禁⽌复⽤。 
+4. 当有⽗Widget的配置数据改变时，同时其 State.build 返回的Widget结构与之前不同，此时就需要重新构建对应的 Element树。为了进⾏Element复⽤，
+在Element重新构建前会先尝试是否可以复⽤旧树上相同位置的element， element节点在更新前都会调⽤其对应Widget的 canUpdate ⽅法，如果返回 true ，则复⽤旧Element，
+旧的 Element会使⽤新Widget配置数据更新，反之则会创建⼀个新的Element。 
+Widget.canUpdate 主要是判 断 newWidget 与 oldWidget 的 runtimeType 和 key 是否同时相等，如果同时相等就返回 true ，否则就会返 回 false 。
+根据这个原理，当我们需要强制更新⼀个Widget时，可以通过指定不同的Key来避免复⽤。 
+5. 当有祖先Element决定要移除 element 时（如Widget树结构发⽣了变化，导致 element 对应的Widget被移除），这 是该祖先Element就会调⽤ deactivateChild ⽅法来移除它，
+移除后 element.renderObject 也会被从渲染树中移 除，然后Framework会调⽤ element.deactivate ⽅法，这时 element 状态变为“inactive”状态。 
+6. “inactive”态的element将不会再显示到屏幕。为了避免在⼀次动画执⾏过程中反复创建、移除某个特定 element，“inactive”态的element在当前动画最后⼀帧结束前都会保留，
+如果在动画执⾏结束后它还未能重新变 成”active“状态，Framework就会调⽤其 unmount ⽅法将其彻底移除，这时element的状态为 defunct ,它将永远不会 再被插⼊到树中。 
+7. 如果 element 要重新插⼊到Element树的其它位置，如 element 或 element 的祖先拥有⼀个GlobalKey（⽤于全局 复⽤元素），那么Framework会先将element从现有位置移除，
+然后再调⽤其 activate ⽅法，并将 其 renderObject 重新attach到渲染树。 看完Element的⽣命周期，可能有些读者会有疑问，开发者会直接操作Element树吗？
+其实对于开发者来说，⼤多数情 况下只需要关注Widget树就⾏，Flutter框架已经将对Widget树的操作映射到了Element树上，这可以极⼤的降低复杂 度，提⾼开发效率。
+但是了解Element对理解整个Flutter UI框架是⾄关重要的，Flutter正是通过Element这个纽带将 Widget和RenderObject关联起来，了解Element层不仅会帮助读者对Flutter UI框架有个清晰的认识，
+⽽且也会提⾼⾃⼰ 的抽象能⼒和设计能⼒。
+另外在有些时候，我们必须得直接使⽤Element对象来完成⼀些操作，⽐如获取主题Theme数 据，具体细节将在下⽂介绍。
+
+//BuildContext 
+⽆论是StatelessWidget和StatefulWidget的build⽅法都会传⼀个BuildContext对象：
+Widget build(BuildContext context) {}
+我们知道，在很多时候我们都需要使⽤这个 context 做⼀些事，⽐如：
+Theme.of(context) //获取主题 
+Navigator.push(context, route) //⼊栈新路由
+Localizations.of(context, type) //获取Local 
+context.size //获取上下⽂⼤⼩ 
+context.findRenderObject() //查找当前或最近的⼀个祖先RenderObject
+那么BuildContext到底是什么呢，查看其定义，发现其是⼀个抽象接⼝类：
+abstract class BuildContext { ... }
+那StatelessWidget和StatefulWidget的build⽅法传⼊的context对象是哪个实现了BuildContext的类。我们顺藤摸⽠，
+发 现调⽤时发⽣在StatelessWidget和StatefulWidget对应的StatelessElement和StatefulElement的build犯法中，以 StatelessElement为例：
+class StatelessElement extends ComponentElement { ... @override Widget build() => widget.build(this); ... }
+发现build传递的是this，很明显了，这个BuildContext很可能就是Element类，查看Element类定义，发现Element类果 然实现了BuildContext接⼝:
+class Element extends DiagnosticableTree implements BuildContext { ... }
+⾄此真相⼤⽩，BuildContext就是Widget对应的Element，所以我们可以通过context在StatelessWidget和 StatefulWidget的build⽅法中直接访问Element对象。
+我们获取主题数据的代码 Theme.of(context) 内部正是调⽤了 Element的 inheritFromWidgetOfExactType() ⽅法。
+思考题：为什么build⽅法的参数不定义成Element对象，⽽要定义成BuildContext ?
