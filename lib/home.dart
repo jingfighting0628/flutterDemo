@@ -73,7 +73,7 @@ class homePage extends StatelessWidget {
     "包与插件",
     "国际化",
     "Flutter核心原理",
-   
+    "组件库"
   ];
   final WidgetArray = [
     widgetStateManage(),
